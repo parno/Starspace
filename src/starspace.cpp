@@ -237,6 +237,7 @@ void StarSpace::loadBaseDocs() {
     }
     fin.close();
     cout << "Finished loading base docs.\n";
+    //cout << "Read in " << baseDocs_.size() << " base docs\n";
   }
 }
 
