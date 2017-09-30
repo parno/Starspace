@@ -38,6 +38,7 @@
 namespace starspace {
 
 struct ParseResults {
+  int label;
   std::vector<int32_t> LHSTokens;
   std::vector<int32_t> RHSTokens;
   std::vector<std::vector<int32_t>> RHSFeatures;

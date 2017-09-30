@@ -230,8 +230,15 @@ void StarSpace::loadBaseDocs() {
     string line;
     while (getline(fin, line)) {
       vector<int32_t> ids;
-      parseDoc(line, ids, "\t ");
+      int space = line.find(" ");
+      string id_string = line.substr(0, space);
+      cout << "id_string: " << id_string << endl;
+      //id_string = id_string.substr(2);
+      int32_t id = (int32_t) atoi(id_string.c_str());
+      string remainder = line.substr(space + 1);
+      parseDoc(remainder, ids, "\t ");
       baseDocs_.push_back(ids);
+      baseDocsIds_.push_back(id);
       auto docVec = model_->projectRHS(ids);
       baseDocVectors_.push_back(docVec);
     }
@@ -345,18 +352,18 @@ void StarSpace::evaluate() {
     // print out prediction results to file
     ofstream ofs(args_->predictionFile);
     for (int i = 0; i < N; i++) {
-      ofs << "Example " << i << ":\nLHS:\n";
-      printDoc(ofs, examples[i].LHSTokens);
-      ofs << "RHS: \n";
-      printDoc(ofs, examples[i].RHSTokens);
+      ofs << "Example " << i << ": ID: " << examples[i].label << "\n"; // "LHS:\n";
+      //printDoc(ofs, examples[i].LHSTokens);
+      //ofs << "RHS: \n";
+      //printDoc(ofs, examples[i].RHSTokens);
       ofs << "Predictions: \n";
       for (auto pred : predictions[i]) {
         if (pred.second == 0) {
           ofs << "(++) [" << pred.first << "]\t";
-          printDoc(ofs, examples[i].RHSTokens);
+          ofs << "\n"; //printDoc(ofs, examples[i].RHSTokens);
         } else {
           ofs << "(--) [" << pred.first << "]\t";
-          printDoc(ofs, baseDocs_[pred.second - 1]);
+          ofs <<  baseDocsIds_[pred.second - 1] << endl; //printDoc(ofs, baseDocs_[pred.second - 1]);
         }
       }
       ofs << "\n";

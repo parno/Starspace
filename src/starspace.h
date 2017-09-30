@@ -66,6 +66,7 @@ class StarSpace {
     std::shared_ptr<EmbedModel> model_;
 
     std::vector<std::vector<int32_t>> baseDocs_;
+    std::vector<int32_t> baseDocsIds_;
     std::vector<Matrix<Real>> baseDocVectors_;
 };
 

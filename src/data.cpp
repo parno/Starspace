@@ -69,7 +69,7 @@ void InternDataHandler::loadFromFile(
 void InternDataHandler::convert(
     const ParseResults& example,
     ParseResults& rslt) const {
-
+  rslt.label = example.label;
   rslt.LHSTokens.clear();
   rslt.RHSTokens.clear();
 

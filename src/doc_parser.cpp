@@ -57,11 +57,12 @@ bool LayerDataParser::parse(
 
   vector<string> parts;
   boost::split(parts, line, boost::is_any_of("\t"));
-  int start_idx = 0;
+  rslt.label = atoi(parts[0].c_str());
+  int start_idx = 1;
   if (args_->trainMode == 0) {
     // the first part is input features
-    parse(parts[0], rslt.LHSTokens);
-    start_idx = 1;
+    parse(parts[1], rslt.LHSTokens);
+    start_idx = 2;
   }
   for (int i = start_idx; i < parts.size(); i++) {
     vector<int32_t> feats;

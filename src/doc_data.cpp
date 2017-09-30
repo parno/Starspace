@@ -100,7 +100,7 @@ void LayerDataHandler::getWordExamples(
 void LayerDataHandler::convert(
     const ParseResults& example,
     ParseResults& rslt) const {
-
+  rslt.label = example.label;
   rslt.LHSTokens.clear();
   rslt.RHSTokens.clear();
 
